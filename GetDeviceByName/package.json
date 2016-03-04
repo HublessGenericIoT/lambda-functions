@@ -1,0 +1,19 @@
+{
+   "name": "get-things-by-name-lambda",
+   "version": "0.0.1",
+   "description": "AWS Lambda function to get things by a given name",
+   "main": "index.js",
+   "dependencies": {
+   },
+   "devDependencies": {
+      "aws-sdk": "latest",
+      "grunt": "latest",
+      "grunt-aws-lambda": "latest",
+     "npm": "^2.8.3"
+   },
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "author": "David Tschida",
+   "license": "Apache 2.0"
+}
