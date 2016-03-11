@@ -1,23 +1,32 @@
 console.log('Loading function');
 
+var uuid = require('node-uuid');
 var aws = require('aws-sdk');
 var iot = new aws.Iot();
 
 exports.handler = function(event, context) {
 
-    if(!event.name) {
-        context.fail("Please provide a device name in the path.");
+    if(!event.name){
+        context.fail("Please provide a device name in the body.");
     }
-    if(Object.keys(event.attributes).length > 3) {
-        context.fail("A thing can only have three keys. Please try again")
+    if(!event.room){
+        context.fail("Please provide a room name in the body.");
     }
+    if(!event.type){
+        context.fail("Please provide a device type in the body. Allowed types are: { light }");
+    }
+
     var params = {
       attributePayload: { /* required */
-        attributes: event.attributes
+        attributes: {
+            name: event.name,
+            room: event.room,
+            type: event.type
+        }
       },
-      thingName: event.name /* required */
+      thingName: uuid.v4()  /* required */
     };
-    iot.updateThing(params, function(err, data) {
+    iot.createThing(params, function(err, data) {
         if (err) {
             console.log("Error: " + err, err.stack); // an error occurred
             context.fail("An error occured querying from IOT. Please reformat your request");
