@@ -32,7 +32,9 @@ exports.handler = function(event, context) {
             context.fail("An error occured querying from IOT. Please reformat your request");
             return;
         }
-        context.succeed({status: "Success"});
+        context.succeed({status: "Success", payload: {
+            thingName: data.thingName
+        }});
         return;
     });
 };
