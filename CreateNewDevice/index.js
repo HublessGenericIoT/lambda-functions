@@ -29,11 +29,16 @@ exports.handler = function(event, context) {
     iot.createThing(params, function(err, data) {
         if (err) {
             console.log("Error: " + err, err.stack); // an error occurred
-            context.fail("An error occured querying from IOT. Please reformat your request");
+            context.fail("An error occured querying from IOT. Please reformat your request. Most likely you have given an invalid value for a member. Member values must satisfy regular expression pattern: [a-zA-Z0-9_.,@/:#-]+");
             return;
         }
         context.succeed({status: "Success", payload: {
-            thingName: data.thingName
+            thingName: data.thingName,
+            mqttData: {
+                url: require("./private").mqtt.url,
+                username: require("./private").mqtt.username,
+                password: require("./private").mqtt.password
+            }
         }});
         return;
     });

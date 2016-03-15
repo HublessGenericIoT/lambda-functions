@@ -23,10 +23,11 @@ exports.handler = function(event, context) {
         async.map(data.things, function map(thing, callback) {
             iotData.getThingShadow({thingName: thing.thingName}, function(err, data) {
                 var shadow = {};
-                console.log("Data from the iotData sdk", data);
+                //console.log("Data from the iotData sdk", data);
                 if (err) {
-                    console.log("An error occurred in the iotData api", err);
+                    //console.log("An error occurred in the iotData api", err);
                     if(err.statusCode == 404) {
+                        console.log("No shadow found for ", thing.thingName)
                         shadow = {};
                     }
                     shadow = {};
@@ -39,6 +40,7 @@ exports.handler = function(event, context) {
             if(err) {
                  context.error("Something happened while gathering shadows and this request has failed")
             }
+            console.log("Sending data badk to client. Success");
             context.succeed({status: "Success", payload: result});
         })
     });

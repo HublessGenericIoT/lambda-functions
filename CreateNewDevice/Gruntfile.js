@@ -5,22 +5,27 @@ var grunt = require('grunt');
 grunt.loadNpmTasks('grunt-aws-lambda');
 
 grunt.initConfig({
-   lambda_invoke: {
-      default: {
-         options: {
-            file_name: 'index.js'
-         }
-      }
-   },
-   lambda_deploy: {
-      default: {
-         function: 'CreateNewDevice'
-      }
-   },
-   lambda_package: {
-      default: {
-      }
-   }
+    lambda_invoke: {
+        default: {
+            options: {
+                file_name: 'index.js'
+            }
+        }
+    },
+    lambda_deploy: {
+        default: {
+            function: 'CreateNewDevice'
+        }
+    },
+    lambda_package: {
+        default: {
+            options: {
+                include_files: [
+                    "private.js"
+                ]
+            }
+        }
+    }
 });
 
 grunt.registerTask('deploy', ['lambda_package', 'lambda_deploy'])
