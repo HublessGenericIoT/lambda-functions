@@ -68,3 +68,8 @@ Currently the create endpoint takes an object with
 }
 ````
 
+
+
+## Contributing!!!
+
+A file `private.js` is required in the root of this function to contain the url, u/n and password for the mqtt server the device should connect to. See `index.js` for usage and required fields.
