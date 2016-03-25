@@ -1,4 +1,4 @@
-var functionName = "CreateNewDevice";
+var functionName = "hublessiotapi-PostDevices";
 
 var AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
@@ -29,21 +29,48 @@ grunt.initConfig({
             }
         },
         prod: {
-             function: functionName,
+            function: functionName,
             options: {
                 enableVersioning: true,
                 aliases: "prod"
+            }
+        },
+        all: {
+            function: functionName,
+            options: {
+                enableVersioning: true,
+                aliases: ["prod", "dev"]
             }
         }
     },
     lambda_package: {
         default: {
         },
-        dev: {},
-        prod: {}
+        dev: {
+            options: {
+                include_files: [
+                    "private.js"
+                ]
+            }
+        },
+        all: {
+            options: {
+                include_files: [
+                    "private.js"
+                ]
+            }
+        },
+        prod: {
+            options: {
+                include_files: [
+                    "private.js"
+                ]
+            }
+        }
     }
 });
 
 //grunt.registerTask('deploy', ['lambda_package', 'lambda_deploy']);
 grunt.registerTask('deploy_dev', ['lambda_package:dev', 'lambda_deploy:dev']);
 grunt.registerTask('deploy_prod', ['lambda_package:prod', 'lambda_deploy:prod']);
+grunt.registerTask('deploy_all', ['lambda_package:all', 'lambda_deploy:all']);

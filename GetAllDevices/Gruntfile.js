@@ -1,4 +1,4 @@
-var functionName = 'GetAllDevices';
+var functionName = 'hublessiotapi-GetDevices';
 
 var AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
